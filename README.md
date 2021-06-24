@@ -27,6 +27,8 @@ NGINX_AUTH_PROXY_LDAP_STARTTLS          | Establish a STARTTLS connection with L
 
 > *: :warning: credentials is stored with simetric AES cryptography
 
+--- 
+
 - `ws-auth-ldap`
 
 Environment Variable                    | Description
