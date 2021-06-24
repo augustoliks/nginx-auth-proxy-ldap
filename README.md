@@ -51,12 +51,12 @@ docker-compose up -d --build
 
 To launch application, access https://127.0.0.1:8443
 
-![](docs/web-form.png)
+<img src="docs/web-form.png" alt="drawing" width="500"/>
 
 If Credentials invalid, will be showing follow alert
 
-![](docs/auth-error.png)
+<img src="docs/auth-error.png" alt="drawing" width="500"/>
 
-Else, user will be redirect page protected
+Else, user will be redirect restricted page in NGINX static folder. 
 
-![](docs/auth-ok.png)
+<img src="docs/auth-ok.png" alt="drawing" width="500"/>
