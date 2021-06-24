@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ label_auth_form_app_name }}</title>
+
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #0B69A3;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.py-1 {
+    padding-top: Calc(.25rem * 1);
+    padding-bottom: Calc(.25rem * 1);
+}
+
+.py-2 {
+    padding-top: Calc(.25rem * 2);
+    padding-bottom: Calc(.25rem * 2);
+}
+
+.py-3 {
+    padding-top: Calc(.25rem * 3);
+    padding-bottom: Calc(.25rem * 3);
+}
+
+.py-4 {
+    padding-top: Calc(.25rem * 4);
+    padding-bottom: Calc(.25rem * 4);
+}
+
+.pt-1 {
+    padding-top: Calc(.25rem * 1);
+}
+
+.pt-2 {
+    padding-top: Calc(.25rem * 2);
+}
+
+.pt-3 {
+    padding-top: Calc(.25rem * 3);
+}
+
+.pt-4 {
+    padding-top: Calc(.25rem * 4);
+}
+
+.inline-block {
+    display: inline-block !important;
+}
+
+.block {
+    width: 100%;
+    max-width: 500px;
+    background-color: rgba(0, 0, 0, .25);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.logo {
+    width: 150px;
+}
+
+.form {
+    width: 100%;
+}
+
+.form-group {
+    width: 100%;
+    font-size: 1.25rem;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+}
+
+.form-group label {
+    display: flex;
+    justify-content: space-between;
+    padding-top: .35rem;
+    padding-bottom: .35rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    box-shadow: inset 0 0 0 transparent;
+}
+
+.btn {
+    font-weight: 400;
+    text-align: center;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    color: #212529;
+    background-color: transparent;
+    cursor: pointer;
+
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+    transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+    transition-delay: 0s, 0s, 0s, 0s;
+}
+
+.btn-primary {
+    border-color: #007bff;
+    background-color: #007bff;
+    color: #FFF;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-question {
+    border-color: #FFF;
+    color: #FFF;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 250px;
+  left: 105%;
+  top: -5px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   color: white;
+   text-align: center;
+   background-color: transparent;
+}
+
+p{
+    padding: 5px;
+}
+    </style>
+
+    <script>
+function showPassword() {
+
+    let fieldPasswd = document.querySelector('#password');
+    if(document.querySelector('#show-password').checked) {
+        fieldPasswd.type = 'text';
+    }
+    else {
+        fieldPasswd.type = 'password';
+    }
+}
+
+function showWarningCredentialsError() {
+    alert("Invalid Credentials !!!")
+}
+
+window.addEventListener("load", function() {
+    {% if show_passwd_warning %}
+    showWarningCredentialsError()
+    {% endif %}
+});
+
+    </script>
+</head>
+<body>
+
+    <div class="block">
+        <div class="header py-4">
+            <h1 class="title py-2">{{ label_auth_form_app_name }} </h1>
+            <h3>{{ label_auth_form_app_description }}</h3>
+        </div>
+
+        <form class="form py-4" action="/login" method="post">
+
+            <div class="form-group">
+                <label for="username">User</label>
+                <input type="text" id="username" name="username" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <input id="show-password" type="checkbox" onChange="showPassword()">
+                <label for="show-password" class="inline-block">Show Password</label>
+            </div>
+
+            <input type="hidden" name="target" value="{{ target }}">
+
+            <div class="pt-4">
+                <button class="btn btn-primary btn-block">Login</button>
+            </div>
+
+        </form>
+
+        <footer>
+            <p>{{ label_auth_form_app_footer }}</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+flask
+flask_wtf
+email-validator
+gunicorn
+pycryptodome
+pydantic
+python-ldap
+pycryptodome

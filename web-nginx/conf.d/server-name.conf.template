@@ -1,0 +1,1 @@
+server_name ${NGINX_SERVER_NAME};

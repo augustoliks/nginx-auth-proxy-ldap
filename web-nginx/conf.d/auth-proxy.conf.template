@@ -1,0 +1,40 @@
+location /login {
+  proxy_pass http://web-auth-ldap/login;
+  include /etc/nginx/conf.d/headers/auth-proxy-headers.conf;
+  proxy_set_header X-Target $request_uri;
+}
+
+location /logout {
+  proxy_pass http://web-auth-ldap/logout;
+  include /etc/nginx/conf.d/headers/auth-proxy-headers.conf;
+}
+
+location = /auth-sub-request {
+  internal;
+
+  proxy_pass http://web-auth-ldap/auth-sub-request;
+
+  # request body is discarded for authentication subrequests,
+  proxy_pass_request_body off;
+  proxy_set_header Content-Length "";
+
+  proxy_cache auth_cache;
+  proxy_cache_valid 200 10m;
+  proxy_cache_key "$http_authorization$cookie_${NGINX_AUTH_COOKIE_NAME}";
+  proxy_set_header Cookie ${NGINX_AUTH_COOKIE_NAME}=$cookie_${NGINX_AUTH_COOKIE_NAME};
+
+  # proxy_cache_key "$http_authorization$cookie_nginxauth";
+  # proxy_set_header Cookie nginxauth=$cookie_nginxauth;
+
+
+  proxy_set_header X-AuthCookieName         "${NGINX_AUTH_COOKIE_NAME}";
+
+  proxy_set_header X-Ldap-URL               "${NGINX_AUTH_PROXY_LDAP_URL}";
+  proxy_set_header X-Ldap-BaseDN            "${NGINX_AUTH_PROXY_LDAP_BASE_DN}";
+  proxy_set_header X-Ldap-BindDN            "${NGINX_AUTH_PROXY_LDAP_BIND_DN}";
+  proxy_set_header X-Ldap-BindPass          "${NGINX_AUTH_PROXY_LDAP_BIND_PASSWORD}";
+  proxy_set_header X-Ldap-SearchFilter      "${NGINX_AUTH_PROXY_LDAP_SEARCH_FILTER}";
+  proxy_set_header X-Ldap-DisableReferrals  "${NGINX_AUTH_PROXY_LDAP_DISABLE_REFERRALS}";
+  proxy_set_header X-Ldap-Starttls          "${NGINX_AUTH_PROXY_LDAP_STARTTLS}";
+  proxy_set_header X-Ldap-Realm             "${NGINX_AUTH_PROXY_LDAP_REALM}";
+}

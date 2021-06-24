@@ -1,0 +1,37 @@
+version: "3.7"
+
+
+services:
+  web-auth-ldap:
+    container_name: web-auth-ldap
+    restart: always
+    build: 
+      context: web-auth-ldap/
+    env_file:
+      - web-auth-ldap.env
+
+  web-nginx:
+    container_name: web-nginx
+    restart: always
+    ports:
+      - 8443:8443
+    build: 
+      context: web-nginx/
+    env_file:
+      - web-nginx.env
+    # volumes:
+    #   - type: bind
+    #     bind:
+    #         propagation: shared
+    #     source: 
+    #     target: /etc/ssl/certs/cert.crt
+    #   - type: bind
+    #     bind:
+    #         propagation: shared
+    #     source: 
+    #     target: /etc/ssl/certs/cert.key
+    #   - type: bind
+    #     bind:
+    #         propagation: shared
+    #     source: 
+    #     target: /etc/nginx/dhparam.pem
